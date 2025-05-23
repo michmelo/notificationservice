@@ -1,0 +1,32 @@
+# IntelliJ IDEA
+.idea/                      # Configuraciones del IDE
+*.iml                       # Archivos de proyecto de IntelliJ
+
+# Compilación de Java
+/target/                    # Carpeta de Maven (archivos binarios)
+*.class                     # Archivos de clases (generados al compilar)
+
+# Maven
+/.mvn/                      # Scripts de Maven Wrapper
+!/.mvn/wrapper/maven-wrapper.jar
+
+# Sistema operativo
+.DS_Store                   # MacOS
+.directory                  # Linux
+Thumbs.db                   # Windows
+ehthumbs.db
+Desktop.ini
+
+# Archivos temporales
+*.log                       # Archivos de log generados (errores o pruebas)
+*.tmp                       # Archivos temporales
+
+# IDEs varios
+*.swp                       # Archivos temporales de Vim
+.vscode/                    # Archivos de configuración de Visual Studio Code
+*.bak                       # Archivos de respaldo
+
+# Archivos de pruebas
+/test-output/              # Resultado de pruebas
+/.idea/sonarlint/          # SonarLint si lo tuvieras activo
+/.scannerwork              # Carpetas de herramientas de análisis estático
