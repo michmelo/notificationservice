@@ -1,19 +1,18 @@
 package com.vitalconnect.notificationservice.model;
 
+//<editor-fold desc="IMPORTS">
 import java.time.LocalDateTime;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+//</editor-fold>
 
 @Entity
-@Table(name = "notificaciones")
+@Table(name = "notifications")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,13 +24,20 @@ public class Notification {
     private int id;
 
     @NotBlank
-    private String tipo;
+    private String destinatario;
 
     @NotBlank
+    private String asunto;
+
+    @NotBlank
+    @Size(max = 500)
     private String mensaje;
 
     @NotBlank
-    private String receptor;
+    private Boolean estado;
 
+    @NotBlank
+    @Column(name = "fecha_envio", nullable = false)
     private LocalDateTime timestamp = LocalDateTime.now();
+
 }
