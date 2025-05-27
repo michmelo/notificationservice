@@ -30,3 +30,6 @@ Desktop.ini
 /test-output/              # Resultado de pruebas
 /.idea/sonarlint/          # SonarLint si lo tuvieras activo
 /.scannerwork              # Carpetas de herramientas de análisis estático
+
+# Variables de entorno
+.env
