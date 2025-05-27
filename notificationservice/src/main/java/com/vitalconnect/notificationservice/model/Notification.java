@@ -31,13 +31,17 @@ public class Notification {
 
     @NotBlank
     @Size(max = 500)
+    @Column(length = 500)
     private String mensaje;
 
-    @NotBlank
+    @Column(nullable = false)
     private Boolean estado;
 
-    @NotBlank
     @Column(name = "fecha_envio", nullable = false)
-    private LocalDateTime timestamp = LocalDateTime.now();
+    private LocalDateTime timestamp;
 
+    @PrePersist
+    protected void onCreate(){
+        this.timestamp = LocalDateTime.now();
+    }
 }
