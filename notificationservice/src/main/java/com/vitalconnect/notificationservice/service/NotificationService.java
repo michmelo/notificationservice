@@ -20,19 +20,19 @@ public class NotificationService {
         this.repo = notificationRepository;
     }
 
-    public Notification enviarCorreo(Notification correo) {
-        return repo.save(correo);
+    public Notification crearNotificacion(Notification notificacion) {
+        return repo.save(notificacion);
     }
 
-    public List<Notification> listarTodasLasNotificaciones() {
+    public List<Notification> obtenerTodas() {
         return repo.findAll();
     }
 
-    public List<Notification> listarPorUsuario(String destinatario) {
-        return repo.findByReceptor(destinatario);
+    public List<Notification> obtenerPorDestinatario(String destinatario) {
+        return repo.findByDestinatario(destinatario);
     }
 
-    public boolean deleteNotification(int id) {
+    public boolean eliminarNotificacion(int id) {
         if (repo.existsById(id)) {
             repo.deleteById(id);
             return true;
