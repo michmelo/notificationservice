@@ -1,30 +1,30 @@
 # Notifications Service - VitalConnect
 Este microservicio forma parte del ecosistema de la plataforma VitalConnect, diseñada para la gestión descentralizada, segura y trazable de historiales médicos.
 
-El notifications-service es responsable del envío de alertas y notificaciones en tiempo real a pacientes, médicos y administradores del sistema.
+El notifications-service es responsable del envío de notificaciones en tiempo real a pacientes, médicos y administradores del sistema.
 
 ## Funcionalidad
-- Envío de correos electrónicos mediante Spring Boot Mail.
-- Consumo de eventos asincrónicos desde Apache Kafka.
-- Validación de datos con Spring Validation.
-- Exposición de endpoints RESTful (eventualmente para pruebas o reintentos).
-- Preparado para ampliación hacia notificaciones push o SMS.
+- Crear notificaciones asociadas a eventos del sistema (ej. acceso a historial).
+- Consultar todas las notificaciones registradas.
+- Consultar notificaciones por destinatario (correo electrónico).
+- Marcar notificaciones como leídas (actualización parcial).
+- Eliminar notificaciones específicas por ID.
+- Manejo centralizado de excepciones comunes y personalizadas.
 
 ## Tecnologías a utilizar
 - Java 17
 - Spring Boot 3.4.5
-- Spring Web
-- Spring Mail
-- Spring Kafka
-- Spring Validation
-- Lombok
+- Spring Data JPA + Hibernate
+- MySQL (hospedada en AWS EC2)
+- Jakarta Validation
+- Spring Exception Handling con @ControllerAdvice
 - Maven
 
 ## Requisitos para ejecutar localmente
 - Java 17
-- Maven (versión por confirmar)
-- Apache Kafka local o en Docker
+- Maven 3.8.1 o superior
 - IntelliJ IDEA (recomendado)
+- MySQL 8.x instalado localmente (Workbench opcional para visualización)
 
 ## Cómo ejecutar el microservicio
 Desde el directorio raíz del proyecto VitalConnect:
@@ -32,30 +32,45 @@ Desde el directorio raíz del proyecto VitalConnect:
 cd notifications-service
 mvn spring-boot:run
 ```
-
 O desde IntelliJ IDEA:
 - Click derecho sobre la clase principal → Run
 
 ## Estructura del proyecto
 ```
-notifications-service/
+notificationservice/
 ├── src/
-│   ├── main/java/com/vitalconnect/notifications/
-│   └── test/java/com/vitalconnect/notifications/
-├── resources/
-│   └── application.properties
-└── pom.xml
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/vitalconnect/notificationservice/
+│   │   │       ├── controller/
+│   │   │       │   ├── ExceptionControllerAdvice.java
+│   │   │       │   └── NotificationController.java
+│   │   │       ├── exception/
+│   │   │       │   └── ResourceNotFoundException.java
+│   │   │       ├── model/
+│   │   │       │   └── Notification.java
+│   │   │       ├── repository/
+│   │   │       │   └── NotificationRepository.java
+│   │   │       ├── service/
+│   │   │       │   └── NotificationService.java
+│   │   │       └── NotificationserviceApplication.java
+│   │   └── resources/
+│   │       └── application.properties
+│   └── test/
+├── .gitignore
+├── HELP.md
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+└── README.md
 ```
 
-## Pruebas
-Este microservicio incluye dependencias para pruebas unitarias y de integración:
-- spring-boot-starter-test
-- spring-kafka-test
-
-## Nota de seguridad
-La dependencia spring-kafka-test incluye transitivamente commons-io:2.11.0, la cual presenta una vulnerabilidad conocida: CVE-2024-47554 (severidad moderada)
-
-Queda pendiente de resolución dependiendo de la versión de Maven del entorno institucional para poder reemplazar commons.io.
+## Endpoints disponibles:
+- `POST /api/v1/notificaciones` → Crea una nueva notificación.
+- `GET /api/v1/notificaciones` → Lista todas las notificaciones registradas.
+- `GET /api/v1/notificaciones/destinatario/{correo}` → Lista notificaciones por destinatario (correo).
+- `PUT /api/v1/notificaciones/{id}` → Actualiza el estado de una notificación (ej. leída).
+- `DELETE /api/v1/notificaciones/{id}` → Elimina una notificación por su ID.
 
 ---
 ## Autoría
