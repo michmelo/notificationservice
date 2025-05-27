@@ -2,6 +2,7 @@ package com.vitalconnect.notificationservice.service;
 
 import java.util.List;
 
+import com.vitalconnect.notificationservice.exception.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,13 @@ public class NotificationService {
 
     public List<Notification> obtenerPorDestinatario(String destinatario) {
         return repo.findByDestinatario(destinatario);
+    }
+
+    public Notification actualizarEstado(int id, Boolean nuevoEstado) {
+        Notification n = repo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontró la notificación con ID: " + id));
+        n.setEstado(nuevoEstado);
+        return repo.save(n);
     }
 
     public boolean eliminarNotificacion(int id) {
