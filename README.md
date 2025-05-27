@@ -72,6 +72,14 @@ notificationservice/
 - `PUT /api/v1/notificaciones/{id}` → Actualiza el estado de una notificación (ej. leída).
 - `DELETE /api/v1/notificaciones/{id}` → Elimina una notificación por su ID.
 
+## Formato JSON
+{
+"destinatario": String,
+"asunto": String,
+"mensaje": String,
+"estado": Boolean
+}
+
 ---
 ## Autoría
 Proyecto propuesto y desarrollado como parte de la asignatura DSY1103 – Desarrollo Fullstack I (DuocUC) por Milenka Guerra y Michelle Melo.
